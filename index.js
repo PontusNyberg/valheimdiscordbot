@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const { execSync, exec } = require('child_process');
 
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES] });
-const token = 'ODkyODMzMzE5MzA4MzgyMzE4.YVSp0w.58SDtd_zXtKy_CppDJqH0QCyBWc';
+const token = 'token';
 
 client.on('ready', () => {
  console.log(`Logged in as ${client.user.tag}!`);
@@ -14,7 +14,7 @@ client.on('messageCreate', msg => {
     // console.log('no prefix');
     return;
  }
- if (!msg.channelId === '810820585490874380' || !msg.channelId === '892835196079046708' || msg.member.user.id === '892833319308382318') {
+ if (!msg.channelId === 'id' || !msg.channelId === 'id' || msg.member.user.id === 'id') {
     // dont listen to other channels
     return;
  }
@@ -70,7 +70,7 @@ client.on('messageCreate', msg => {
       .addFields(
          { name: 'Worldname', value: worldNameStr },
          { name: 'Server name', value: serverNameStr },
-         { name: 'Server URL', value: 'valheim.grabbar.se:2457' },
+         { name: 'Server URL', value: 'URL' },
          { name: 'External IP', value: externalIPStr },
          { name: 'Server Port', value: portStr },
          { name: 'Public Listing', value: isPublic },
@@ -92,7 +92,7 @@ client.on('messageCreate', msg => {
      msg.channel.send({ embeds: [statusText] })
  }
  if(command === 'upgrade') {
-    if(msg.member.user.id === '126751120054943744') {
+    if(msg.member.user.id === 'id') {
       const officialBuild = printValheimOfficialBuild();
       const localBuild = printValheimLocalBuild();
       if(officialBuild === localBuild) {
