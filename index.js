@@ -14,10 +14,14 @@ client.on('messageCreate', msg => {
     // console.log('no prefix');
     return;
  }
- if (!msg.channelId === 'id' || !msg.channelId === 'id' || msg.member.user.id === 'id') {
-    // dont listen to other channels
-    return;
- }
+ if (msg.channelId !== '892835196079046708') {
+   // dont listen to other channels
+   return;
+}
+if (msg.member.user.id === '894646765993734245') {
+  // dont listen to other channels
+  return;
+}
 
  const args = msg.content.slice(prefix.length).trim().split(' ');
  const command = args.shift().toLowerCase();
@@ -92,17 +96,17 @@ client.on('messageCreate', msg => {
      msg.channel.send({ embeds: [statusText] })
  }
  if(command === 'upgrade') {
-    if(msg.member.user.id === 'id') {
+    if(msg.member.user.id === '126751120054943744') {
       const officialBuild = printValheimOfficialBuild();
       const localBuild = printValheimLocalBuild();
       if(officialBuild === localBuild) {
          msg.reply("Officalbuild: " + officialBuild + "LocalBuild: " + localBuild + "No new updates found")
       } else {
          msg.reply("Update found, Using Thor's Hammer to apply Official Updates!")
-         execSync('steamcmd +login anonymous +force_install_dir /home/steam/valheimserver/HomeyAndBuilds +app_update 896660 validate +exit')
-         execSync('chown -R steam:steam /home/steam/valheimserver/HomeyAndBuilds')
+         exec('steamcmd +login anonymous +force_install_dir /home/steam/valheimserver/HomeyAndBuilds +app_update 896660 validate +exit')
+         exec('sudo chown -R steam:steam /home/steam/valheimserver/HomeyAndBuilds')
          msg.reply('Update added, kicking process to Odin for restarting!')
-         execSync('systemctl restart valheimserver_HomeyAndBuilds.service')
+         exec('sudo systemctl restart valheimserver_HomeyAndBuilds.service')
       }
     } else {
        msg.reply("You do not have permission to do this command.")
@@ -123,7 +127,7 @@ function getValheimServerSubstate() {
 }
 
 function printValheimOfficialBuild() {
-    const officialBuild = execSync('cat /home/steam/valheimserver/HomeyAndBuilds/officialvalheimbuild')
+    const officialBuild = execSync('steamcmd +login anonymous +app_info_update 1 +app_info_print 896660 +quit | grep -A10 branches | grep -A2 public | grep buildid | cut -d\'"\' -f4')
     return officialBuild.toString("utf-8", 0, officialBuild.length)
 }
 
